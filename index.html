@@ -1,0 +1,51 @@
+<!doctype html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Library</h1>
+        <button class="addbook">add book</button>
+      </header>
+      <main>
+        <div class="shelf"></div>
+      </main>
+    </div>
+
+    <dialog id="add-book-dialog">
+        <form method="post" id="add-book-form">
+            <div class="form-heading"><h5>Add your Book</h5></div>
+            <div id="book-title">
+                <label for="book_title">Title</label>
+                <input type="text" name="book_title" class="input-fields" id="book_title" required placeholder="Frankenstein">
+            </div>
+            <div id="book-author">
+                <label for="book_author">Author</label>
+                <input type="text" name="book_author" class="input-fields" id="book_author" required placeholder="Mary Shelley">
+            </div>
+            <div id="book-pages">
+                <label for="book_pages">Pages</label>
+                <input type="number" name="book_pages" class="input-fields" id="book_pages" required placeholder="200">
+            </div>
+            <div id="read-check">
+                <label for="read_check">Read</label>
+                <input type="checkbox" name="read_check" id="read_check">
+            </div>
+            <div class="dialog-btn-box">
+                <button type="submit" id="submit-btn">Submit</button>
+                <button type="button" id="cancel-btn">Cancel</button>
+            </div>
+        </form>
+      </dialog>
+
+
+    <script src="script.js" async defer></script>
+  </body>
+</html>

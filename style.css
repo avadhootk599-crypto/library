@@ -1,0 +1,400 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:wght@400;600&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --bg: #16241f;
+  --bg-vignette: #1e332b;
+  --parchment: #f3ead2;
+  --parchment-dim: #e8dcbf;
+  --ink: #2a2118;
+  --ink-soft: #5a4c3a;
+  --brass: #b8863a;
+  --brass-dark: #8f6a2c;
+  --brass-light: #d9ae66;
+  --danger: #8b3a3a;
+
+  --spine-1: #7a1f2b;
+  --spine-2: #234d3a;
+  --spine-3: #2c4a68;
+  --spine-4: #6b4226;
+  --spine-5: #5c3a5e;
+  --spine-6: #1f3a52;
+
+  --font-display: "Fraunces", serif;
+  --font-body: "Source Serif 4", serif;
+  --font-ui: "Inter", sans-serif;
+
+  --radius: 6px;
+  --shadow-card:
+    0 10px 20px -8px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--parchment);
+  background:
+    radial-gradient(
+      ellipse 900px 500px at 50% -10%,
+      var(--bg-vignette),
+      transparent
+    ),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+/* ---------- Header ---------- */
+
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 48px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(184, 134, 58, 0.35);
+  position: relative;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 64px;
+  height: 2px;
+  background: var(--brass);
+}
+
+header h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: italic;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--parchment);
+}
+
+button.addbook {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: var(--brass);
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px -4px rgba(184, 134, 58, 0.5);
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+button.addbook:hover {
+  background: var(--brass-light);
+  transform: translateY(-1px);
+}
+
+button.addbook:active {
+  transform: translateY(0);
+}
+
+/* ---------- Shelf / book grid ---------- */
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 28px 22px;
+}
+
+.shelf:empty::before {
+  content: "Your shelf is empty. Add the first book.";
+  grid-column: 1 / -1;
+  font-family: var(--font-body);
+  font-style: italic;
+  color: rgba(243, 234, 210, 0.5);
+  text-align: center;
+  padding: 60px 0;
+  border: 1px dashed rgba(184, 134, 58, 0.3);
+  border-radius: var(--radius);
+}
+
+.book-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--parchment);
+  color: var(--ink);
+  border-radius: 3px var(--radius) var(--radius) 3px;
+  padding: 22px 18px 18px 26px;
+  min-height: 220px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* the "spine" strip -- signature detail, color cycles per card */
+.book-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  border-radius: 3px 0 0 3px;
+  background: var(--spine-1);
+}
+
+.book-card:nth-of-type(6n + 2)::before {
+  background: var(--spine-2);
+}
+.book-card:nth-of-type(6n + 3)::before {
+  background: var(--spine-3);
+}
+.book-card:nth-of-type(6n + 4)::before {
+  background: var(--spine-4);
+}
+.book-card:nth-of-type(6n + 5)::before {
+  background: var(--spine-5);
+}
+.book-card:nth-of-type(6n + 0)::before {
+  background: var(--spine-6);
+}
+
+.book-card h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+
+.book-card h3 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+
+.book-card p {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 auto;
+}
+
+.book-card p::after {
+  content: " pages";
+  text-transform: none;
+}
+
+.book-card > button {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 8px 10px;
+  cursor: pointer;
+  margin-top: 14px;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* read/not-completed toggle button */
+.book-card > button:first-of-type {
+  background: transparent;
+  border: 1.5px solid var(--brass-dark);
+  color: var(--brass-dark);
+}
+
+.book-card > button:first-of-type:hover {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--parchment);
+}
+
+/* delete button */
+.book-card > button:last-of-type {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--danger);
+  margin-top: 6px;
+}
+
+.book-card > button:last-of-type:hover {
+  background: rgba(139, 58, 58, 0.1);
+  border-color: rgba(139, 58, 58, 0.3);
+}
+
+/* ribbon corner fold for completed books -- add class="is-read" to
+   .book-card in JS when book.read is true, and this lights up */
+.book-card.is-read::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 14px;
+  width: 22px;
+  height: 34px;
+  background: var(--brass);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Dialog ---------- */
+
+dialog#add-book-dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  background: var(--parchment);
+  color: var(--ink);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.6);
+  width: min(420px, 90vw);
+}
+
+dialog#add-book-dialog::backdrop {
+  background: rgba(10, 16, 13, 0.7);
+  backdrop-filter: blur(2px);
+}
+
+#add-book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 30px 28px 26px;
+}
+
+.form-heading h5 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin: 0 0 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(42, 33, 24, 0.15);
+}
+
+#book-title,
+#book-author,
+#book-pages {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#read-check {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+label {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.input-fields {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid rgba(42, 33, 24, 0.18);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+
+.input-fields:focus-visible {
+  outline: none;
+  border-color: var(--brass);
+  box-shadow: 0 0 0 3px rgba(184, 134, 58, 0.25);
+}
+
+#read_check {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--brass-dark);
+}
+
+.dialog-btn-box {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.dialog-btn-box button {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.88rem;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+}
+
+#submit-btn {
+  background: var(--brass);
+  color: var(--ink);
+}
+
+#submit-btn:hover {
+  background: var(--brass-light);
+}
+
+#cancel-btn {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1.5px solid rgba(42, 33, 24, 0.2) !important;
+}
+
+#cancel-btn:hover {
+  background: rgba(42, 33, 24, 0.06);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 480px) {
+  .container {
+    padding: 32px 18px 60px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .shelf {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px 14px;
+  }
+}
