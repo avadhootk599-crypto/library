@@ -2,7 +2,6 @@
 
 A simple book-tracking app built as part of [The Odin Project](https://www.theodinproject.com/) JavaScript curriculum. Add books to your shelf, mark them read or not completed, and remove them — all state lives in memory via a JS object constructor.
 
-![Library screenshot](screenshot.png)
 
 ## Features
 
