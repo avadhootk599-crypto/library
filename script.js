@@ -1,22 +1,51 @@
-const library = [];
+class Library {
+  constructor() {
+    this.books = [];
+  }
 
-function Book(title, author, pages, read) {
-  this.id = crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+  addBook(book) {
+    this.books.push(book);
+  }
+
+  removeBook(bookId) {
+    this.books = this.books.filter((book) => book.id !== bookId);
+  }
+
+  getBooks(bookId) {
+    return this.books.find((book) => book.id === bookId);
+  }
+  toggleRead(bookId) {
+    const book = this.getBooks(bookId);
+    if (book) {
+      book.toggleRead();
+    }
+  }
+}
+const library = new Library();
+
+class Book {
+  constructor(title, author, pages, read) {
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+
+  toggleRead() {
+    this.read = !this.read;
+  }
 }
 
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
-  library.push(book);
+  library.addBook(book);
 }
 
 function displaybooks() {
   const shelf = document.querySelector(".shelf");
   shelf.innerHTML = "";
-  for (const book of library) {
+  for (const book of library.books) {
     const card = document.createElement("div");
     card.classList.add("book-card");
     card.dataset.id = book.id;
@@ -45,11 +74,7 @@ function displaybooks() {
       const card = evt.target.closest(".book-card");
       const bookId = card.dataset.id;
 
-      const index = library.findIndex((book) => {
-        return bookId === book.id;
-      });
-
-      library.splice(index, 1);
+      library.removeBook(bookId);
       displaybooks();
     });
 
@@ -57,11 +82,7 @@ function displaybooks() {
       const card = evt.target.closest(".book-card");
       const bookId = card.dataset.id;
 
-      const index = library.findIndex((book) => {
-        return bookId === book.id;
-      });
-
-      library[index].read = !library[index].read;
+      library.toggleRead(bookId);
       displaybooks();
     });
   }
